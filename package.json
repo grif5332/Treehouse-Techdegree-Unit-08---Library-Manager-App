@@ -1,0 +1,22 @@
+{
+  "name": "sql-library-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon"
+  },
+  "author": "Matthew L. Griffith",
+  "license": "ISC",
+  "dependencies": {
+    "animate.css": "^3.7.0",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.4",
+    "pug": "^2.0.3",
+    "sequelize": "^4.41.2",
+    "sequelize-cli": "^5.4.0",
+    "sqlite3": "^4.0.4"
+  }
+}

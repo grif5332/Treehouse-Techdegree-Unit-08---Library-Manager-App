@@ -1,0 +1,9 @@
+//- error.pug :  
+//- for displaying a user friendly error message.
+extends layout.pug
+block content
+	div.error-style
+		h1= error.status
+		p= error.message
+	//- pre= error.stack
+	a(href='/') ← Back to Home
