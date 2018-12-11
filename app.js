@@ -14,27 +14,28 @@ const booksRoutes = require('./routes/books');
 app.use('/', mainRoutes);
 app.use('/books', booksRoutes);
 
-//Error middleware
-app.use((req, res, next) => {
-    const err = new Error('Page Not Found');
+// Error middleware
+app.use(function(req, res, next) {
+    const err = new Error('Not Found');
     err.status = 404;
     next(err);
-}); 
+  });
 
-app.use((req, res, next) => {
-    const err = new Error('Aww Crap!');
+  app.use(function(req, res, next) {
+    var err = new Error('Error');
     err.status = 500;
     next(err);
-});
-app.use((err, req, res, next) => {
-    res.locals.error = err;
-    res.status(err.status);
-    if (err.status === 404) {
-        res.render('page-not-found');
-    } else {
-        res.render('error');
-    }
-});
+  });
+// app.use((err, req, res, next) => {
+//     res.locals.error = err;
+//     res.status(err.status);
+//     if (err.status === 404) {
+//         res.render('page-not-found');
+//     } else {
+//         res.render('error');
+//     }
+// });
+
 
 // Listen on PORT: 8000
 app.listen(8000, () => {

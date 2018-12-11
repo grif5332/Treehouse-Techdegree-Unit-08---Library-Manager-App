@@ -4,6 +4,7 @@ body {
 }
 /* Custom Styling */
 .navigation {
+  z-index: 20;
   width: 100%;
   position: fixed;
   top: 0;
@@ -11,6 +12,14 @@ body {
   background-color: #019875;
   color: white; 
   border-bottom: #D8B493 solid 5px;
+}
+#nav-title{
+  display: inline-block;
+  float: left;
+}
+#nav-db {
+  display: inline-block;
+  float: right;
 }
 
 .wrapper {
@@ -23,9 +32,35 @@ body {
 .error-style  {
   text-align: center;
 }
+#new-book-btn {
+  display: inline-block;
+  float: left;
+}
 #searchbar {
-  position: relative;
+  display: inline-block;
   float: right;
+  z-index: 1;
+}
+#book-list-table {
+  padding-bottom: 4em;
+}
+.update-error-style {
+  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 1em;
+  color: red;
+  background-color: rgb(255, 218, 218);
+  border: red solid 2px;
+  border-radius: 2px;
+  padding: 5px 10px 5px 10px;
+  width: 300px;
+  margin: .5em 0;
+  font-weight: 400;
+}
+li.update-error-style:first-child {
+  margin-top: 0;
+}
+.update-error-style:last-child {
+  margin-bottom: 0;
 }
 
 
@@ -120,8 +155,4 @@ input {
 input[type=text] {
   margin-left: 7px;
   width: 300px;
-}
-
-.error {
-  color: rgb(236, 15, 15);
 }

@@ -5,11 +5,11 @@ extends layout.pug
 block content
 	h1 Books in Library:
 	p
-		a.button(href='/books/new') Create New Book
+		a.button#new-book-btn(href='/books/new') Create New Book
+	form
+		input#searchbar(method='get', name='search', type='text', placeholder='search titles, authors, genre, or year...')
 
-		input#searchbar(name='search', type='text', placeholder='search titles, authors, genre, or year...')
-
-	table
+	table#book-list-table
 		thead
 			tr
 				th Title

@@ -3,7 +3,7 @@
 extends layout.pug
 block content
 	h1 Add a New Book
-	form(action='/books', method='post')
+	form(action='/books', method='post', onsubmit=`return confirm('Add new book?');`)
 		p
 			label(for='title') Title
 			input#title(name='title', type='text', value=book.title)
