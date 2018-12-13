@@ -11,10 +11,10 @@ block content
 	form(method='post', action=`/books/${book.id}`, onsubmit=`return confirm('Are you sure you want to update "${book.title}"?');`)
 		
 		p
-			label(for='title') Title:
+			label(for='title') Title: *
 			input#author(name='title', type='text', value=book.title)
 		p
-			label(for='author') Author:
+			label(for='author') Author: *
 			input#author(name='author', type='text', value=book.author)
 		p
 			label(for='genre') Genre:
@@ -22,6 +22,9 @@ block content
 		p
 			label(for='year') Year:
 			input#year(name='year', type='text', value=book.year)
+		p#req-style
+			i * fields required!
+
 		h3 Options:
 		p
 			input(type='submit', value='Update Book')
@@ -31,5 +34,6 @@ block content
 			input(type='submit', value='Delete Book')
 
 	a(href='/') ← Back to Home
+	div.footer
 
 

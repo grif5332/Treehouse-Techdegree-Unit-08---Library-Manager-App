@@ -3,7 +3,9 @@
 extends layout.pug
 
 block content
-	h1= error.message
-  	h2= error.status
-  	pre #{error.stack}
+
+	h1.error-style= error.message
+	h2.error-style= error.status + " status"
+	pre#error-stack-style= error.stack
+
 	a(href='/') ← Back to Home

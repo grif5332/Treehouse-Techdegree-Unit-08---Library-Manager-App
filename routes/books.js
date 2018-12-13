@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 const Book = require('../models').Book;
 const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({extended: false}));
@@ -10,22 +12,6 @@ router.get('/', (req, res, next) => {
     Book.findAll( { order: [['title','ASC']] } )
         .then(books => {
             res.render('book-list', {books: books})
-        })
-        .catch(err => { res.send(500) });
-});
-
-
-// books/:id Route (GET)
-// Shows book detail form.
-router.get('/:id', (req, res, next) => {
-    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"); // CLI server reload ref point.
-    Book.findById(req.params.id)
-        .then(book =>{
-            if(book) {
-                res.render('update-book', { book: book, title: book.title });      
-            } else {
-                res.send(404);
-            };
         })
         .catch(err => { res.send(500) });
 });
@@ -82,6 +68,46 @@ router.post('/:id/delete', (req, res, next) => {
             }
         })
         .then(book => { res.redirect(`/books`)})
+        .catch(err => { res.send(500) });
+});
+// books/:id Route (GET)
+// Shows book detail form.
+router.get('/:id', (req, res, next) => {
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"); // CLI server reload ref point.
+    Book.findById(req.params.id)
+        .then(book =>{
+            if(book) {
+                res.render('update-book', { book: book, title: book.title });      
+            } else {
+                console.log(err.status);
+                res.render('page-not-found');
+            };
+        })
+        .catch(err => { res.send(500) });
+});
+
+// search
+router.get('/search', (req, res) => {
+    const { search } = req.query;
+    Book.findAll({
+        where : {
+            // title: {[Op.like]: '%' + search + '%' }
+             [Op.or]: [
+                 { title: '%' + search + '%'},
+                 { author: '%' + search + '%'},
+                 { genre: '%' + search + '%'},
+                 { year: '%' + search + '%'},
+             ]
+            }
+        })
+        .then(books => {
+            if(books) { 
+            res.render('book-list', {books: books})
+        } else {
+            console.log(err.status);
+            res.render('page-not-found');
+        }
+        })
         .catch(err => { res.send(500) });
 });
 

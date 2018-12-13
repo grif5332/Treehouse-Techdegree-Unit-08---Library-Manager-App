@@ -41,6 +41,12 @@ body {
   float: right;
   z-index: 1;
 }
+#searchbutton {
+  display: inline-block;
+  float: right;
+  z-index: 1;
+  margin: 0;
+}
 #book-list-table {
   padding-bottom: 4em;
 }
@@ -62,8 +68,19 @@ li.update-error-style:first-child {
 .update-error-style:last-child {
   margin-bottom: 0;
 }
-
-
+#error-stack-style {
+  font-size: 14px; 
+  overflow: scroll;
+  height: 60%;
+  border: rgb(196, 196, 196) solid 2px;
+}
+#req-style {
+  font-size: 18px;
+  margin-top: -10px;
+}
+.footer {
+  height: 50px;
+}
 /* End Custom Styling */
 a {
   color: #019875;

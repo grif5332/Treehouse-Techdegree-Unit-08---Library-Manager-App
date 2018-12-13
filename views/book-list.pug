@@ -6,8 +6,10 @@ block content
 	h1 Books in Library:
 	p
 		a.button#new-book-btn(href='/books/new') Create New Book
-	form
+	form(action='/books/search', method='get')
+		input#searchbutton(type='submit', value='Search')
 		input#searchbar(method='get', name='search', type='text', placeholder='search titles, authors, genre, or year...')
+		
 
 	table#book-list-table
 		thead
