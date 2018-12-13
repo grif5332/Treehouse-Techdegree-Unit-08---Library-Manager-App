@@ -87,6 +87,9 @@ router.get('/:id', (req, res, next) => {
 });
 
 // search
+// The basic layout was done with help from a Traversy Media YouTube video:
+// https://www.youtube.com/watch?v=6jbrWF3BWM0
+// I added the [Op.or], if/else, and the res.send(500) stuff.
 router.get('/search', (req, res) => {
     const { search } = req.query;
     Book.findAll({
