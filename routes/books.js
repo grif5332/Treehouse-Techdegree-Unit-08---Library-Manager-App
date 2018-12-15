@@ -19,10 +19,8 @@ router.get('/', (req, res, next) => {
         // PAGINATION START
         const booksPerPage = 10;
         let numberOfPages = Math.ceil(books.length / booksPerPage);
-        let currentPage = 1;
-        let booksPerGroup = [];
+        let currentPage = 0;
         let booksArray = [];
-        let booksList = [];
 
         console.log(`Number Of Books: ${books.length}`);
         console.log(`Number of Pages ${numberOfPages}`);
@@ -32,11 +30,14 @@ router.get('/', (req, res, next) => {
         };
 
         console.log(`Number of Book Arrays: ${booksArray.length}`);
-
         
         //PAGINATION END
 
-        res.render('book-list', {books: books})
+        res.render('book-list', {
+            books: booksArray[currentPage],
+            // currentPage: currentPage,
+            pages:  numberOfPages
+        })
     }).catch(err => { res.send(500) });
 });
 

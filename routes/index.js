@@ -26,10 +26,31 @@ router.get('/books/search', (req, res) => {
                 genre: { [Op.like]: `%${q}%` },
                 year: { [Op.like]: `%${q}%` }
             }
-        } 
+        }   
     }).then(books => {
         if(books.length >=1) {
-            res.render('book-list', { books: books })
+            // PAGINATION START
+            const booksPerPage = 10;
+            let numberOfPages = Math.ceil(books.length / booksPerPage);
+            let currentPage = 0;
+            let booksArray = [];
+
+            console.log(`Number Of Books: ${books.length}`);
+            console.log(`Number of Pages ${numberOfPages}`);
+            // books.length equals number of books in db
+            while(books.length > 0) {
+                booksArray.push(books.splice(0, booksPerPage))
+            };
+
+            console.log(`Number of Book Arrays: ${booksArray.length}`);
+            
+            //PAGINATION END
+
+            res.render('book-list', {
+                // books: books
+                books: booksArray[currentPage],
+                pages:  numberOfPages
+            })
         } else {
             res.render('no-search-results')           
         }

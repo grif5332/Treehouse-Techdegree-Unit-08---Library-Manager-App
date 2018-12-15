@@ -25,6 +25,12 @@ block content
 					td= book.author
 					td= book.genre
 					td= book.year
+
+	ul.pagination
+		- var number = 1
+		while number <= pages
+			li.pagelink-style
+				a(href='/', onclick='#{currentPage} = #{this.value}')
+					p= number++
 		
-	div
 		

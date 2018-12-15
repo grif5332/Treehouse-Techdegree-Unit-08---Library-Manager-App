@@ -78,6 +78,25 @@ li.update-error-style:first-child {
 .pagination {
   text-align: center;
 }
+.pagelink-style {
+  display: inline-block;
+  padding: 0 10px;
+  border: 1px #D8B493 solid;
+  margin: 0 5px;
+}
+.pagelink-style:hover {
+  background-color: #D8B493;
+  border-color: black;
+}
+
+.pagelink-style:first-child {
+  padding-right: 0 10px 0 0 ;
+}
+.pagelink-style:last-child {
+  padding-left: 0 10px 0 0;
+}
+
+
 /* End Custom Styling */
 a {
   color: #019875;
@@ -114,7 +133,7 @@ input[type=submit] {
   }
 
 p {
-  margin: 20px auto;
+  margin: auto;
 }
 
 ul {
