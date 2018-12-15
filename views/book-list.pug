@@ -25,12 +25,17 @@ block content
 					td= book.author
 					td= book.genre
 					td= book.year
+	br
+	//- if the number of 'pages' are one or less, show the 'back to home' link
+	if(pages <= 1)
+		a(href='/') ← Back to Home
+	//- if the number of pages are two or more, show the pagination links.
+	if(pages >= 2)
+		ul.pagination
+			- var number = 1
+			while number <= pages
+				a(href=`/books/?page=${number-1}`)
+					li.pagelink-style= number++	
 
-	ul.pagination
-		- var number = 1
-		while number <= pages
-			li.pagelink-style
-				a(href='/', onclick='#{currentPage} = #{this.value}')
-					p= number++
-		
+	
 		

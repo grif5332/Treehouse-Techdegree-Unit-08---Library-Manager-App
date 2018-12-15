@@ -3,6 +3,11 @@
 extends layout.pug
 block content
 	h1 Add a New Book
+		if(errors)
+			h2.errors Uh oh!  You seem to be missing some stuff.
+			ul.errors
+				each error in errors
+					li.update-error-style= error.message
 	form(action='/books', method='post', onsubmit=`return confirm('Add new book?');`)
 		p
 			label(for='title') Title

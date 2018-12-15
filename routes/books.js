@@ -7,35 +7,29 @@ const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({extended: false}));
 
 
-
-// Books Route (GET)
-// Shows the full list of books.
+// Books Route (GET) - Shows the full list of books.
 router.get('/', (req, res, next) => {
     Book.findAll({
         order: [['id','ASC']]
-        // limit: 10
     })
     .then(books => {
         // PAGINATION START
         const booksPerPage = 10;
         let numberOfPages = Math.ceil(books.length / booksPerPage);
-        let currentPage = 0;
+        let currentPage = req.query.page;
         let booksArray = [];
 
-        console.log(`Number Of Books: ${books.length}`);
-        console.log(`Number of Pages ${numberOfPages}`);
         // books.length equals number of books in db
         while(books.length > 0) {
             booksArray.push(books.splice(0, booksPerPage))
         };
-
-        console.log(`Number of Book Arrays: ${booksArray.length}`);
-        
-        //PAGINATION END
+        // If the current page comesback undefined, set currentPage to 0
+        if(typeof currentPage === 'undefined') {
+            currentPage = 0;}
+        // //PAGINATION END 
 
         res.render('book-list', {
             books: booksArray[currentPage],
-            // currentPage: currentPage,
             pages:  numberOfPages
         })
     }).catch(err => { res.send(500) });
@@ -43,9 +37,8 @@ router.get('/', (req, res, next) => {
 
 // POST - Create a New Book
 router.post('/', (req, res, next) => {
-    Book.create(req.body).then(book => {
-            res.redirect(`/books`);
-    }).catch(err => {
+    Book.create(req.body).then( book => { res.redirect(`/books`) })
+    .catch(err => {
         if(err.name === "SequelizeValidationError") {
             res.render('new-book', {
                 book: Book.build(req.body),
@@ -81,8 +74,8 @@ router.post('/:id', (req, res, next) => {
         }).catch(err => { res.send(500) });
 });
 
-// DELETE - Deletes a Book, then redirects to Book List
-// WARNING!  This completely removes a book!  You have been warned!
+/* DELETE - Deletes a Book, then redirects to Book List
+    WARNING!  This completely removes a book!  You have been warned! */
 router.post('/:id/delete', (req, res, next) => {
     Book.findById(req.params.id)
         .then(book => {
@@ -95,8 +88,8 @@ router.post('/:id/delete', (req, res, next) => {
         .then(book => { res.redirect(`/books`)})
         .catch(err => { res.send(500) });
 });
-// books/:id Route (GET)
-// Shows book detail form.
+
+// books/:id Route (GET) - Shows book detail form.
 router.get('/:id', (req, res, next) => {
     console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"); // CLI server reload ref point.
     Book.findById(req.params.id)
@@ -104,28 +97,11 @@ router.get('/:id', (req, res, next) => {
             if(book) {
                 res.render('update-book', { book: book, title: book.title });      
             } else {
+                console.log(`The page you were looking for does not exist.`)
                 res.render('page-not-found');
             };
         })
         .catch(err => { res.send(500) });
 });
-
-// // search
-// router.get('/search', (req, res) => {
-//     // let {search} = req.params.q;
-//     Book.findAll({ where : {title: {[Op.like]: '%' + req.param.q + '%'}
-
-
-//                 //  { title: '%' + search + '%'}
-//                 //  { author: '%' + search + '%'},
-//                 //  { genre: '%' + search + '%'},
-//                 //  { year: '%' + search + '%'},
-//             }
-//         })
-//         .then(books => {
-//             res.render('book-list', { books })
-//         })
-//         .catch(err => { res.send(500) });
-// });
 
 module.exports = router;

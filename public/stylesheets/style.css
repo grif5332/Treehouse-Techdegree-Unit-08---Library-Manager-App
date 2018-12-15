@@ -79,6 +79,7 @@ li.update-error-style:first-child {
   text-align: center;
 }
 .pagelink-style {
+  
   display: inline-block;
   padding: 0 10px;
   border: 1px #D8B493 solid;
@@ -86,7 +87,7 @@ li.update-error-style:first-child {
 }
 .pagelink-style:hover {
   background-color: #D8B493;
-  border-color: black;
+  border-color: #019875;
 }
 
 .pagelink-style:first-child {
@@ -133,7 +134,7 @@ input[type=submit] {
   }
 
 p {
-  margin: auto;
+  margin: 20px auto;
 }
 
 ul {
