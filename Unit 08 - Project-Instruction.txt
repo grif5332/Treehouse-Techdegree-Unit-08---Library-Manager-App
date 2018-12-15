@@ -97,12 +97,12 @@ Project instructions:
 _______________________________
 Extra Credit:
 ===============================
-[] Search
+[X] Search
     Include a search field for the books listing page. Search should work for all of the following fields:
-    [] Title
-    [] Author
-    [] Genre
-    [] Year
+    [X] Title
+    [X] Author
+    [X] Genre
+    [X] Year
     NOTE: Searching should be case insensitive and be good for partial matches for strings.
 
 [] Pagination
