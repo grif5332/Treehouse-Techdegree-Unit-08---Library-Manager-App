@@ -18,8 +18,7 @@ This project is a Library Manager.  Initially, the page loads a paginated list o
 ### The Non-Treehouse Additions:
 1) Red box and text error validation
 2) Astricks and italisized text on form
-3) A fixed header with colored background.  Added a new, complementary color to the site color palette.
-  * for possible menu implementation
+3) A fixed header with colored background.  Added a new, complementary color to the site color palette. (for possible menu implementation)
 4) "back to home" links with conditional visibility. When you are on the home page, it disappears.
 5) Search bar and button
 6) Added many more books to the library.  For testing purposes.
