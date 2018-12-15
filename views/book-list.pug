@@ -27,7 +27,7 @@ block content
 					td= book.year
 	br
 	//- if the number of 'pages' are one or less, show the 'back to home' link
-	if(pages <= 1)
+	if(pages <= 1 || home === true)
 		a(href='/') ← Back to Home
 	//- if the number of pages are two or more, show the pagination links.
 	if(pages >= 2)

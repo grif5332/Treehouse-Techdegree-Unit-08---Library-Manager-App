@@ -25,14 +25,16 @@ router.get('/', (req, res, next) => {
         };
         // If the current page comesback undefined, set currentPage to 0
         if(typeof currentPage === 'undefined') {
-            currentPage = 0;}
+            currentPage = 0;
+        };
+
         // //PAGINATION END 
 
         res.render('book-list', {
             books: booksArray[currentPage],
             pages: numberOfPages
         })
-    }).catch(err => { res.send(500) });
+    }).catch(err => { res.sendStatusStatus(500) });
 });
 
 // POST - Create a New Book
@@ -47,16 +49,16 @@ router.post('/', (req, res, next) => {
         } else {
             throw err;
         }
-    }).catch(err => { res.send(500) });
+    }).catch(err => { res.sendStatus(500) });
 });
 
 // POST - Updates a Book, then redirects to the Book list
 router.post('/:id', (req, res, next) => {
-    Book.findById(req.params.id).then(book => {
+    Book.findByPk(req.params.id).then(book => {
             if(book) {
                 return book.update(req.body)
             } else {
-                res.send(404)
+                res.sendStatus(404)
             };
         })
         .then(book => { res.redirect(`/books`) })
@@ -71,28 +73,28 @@ router.post('/:id', (req, res, next) => {
             } else {
                 throw err;
             };
-        }).catch(err => { res.send(500) });
+        }).catch(err => { res.sendStatus(500) });
 });
 
 /* DELETE - Deletes a Book, then redirects to Book List
     WARNING!  This completely removes a book!  You have been warned! */
 router.post('/:id/delete', (req, res, next) => {
-    Book.findById(req.params.id)
+    Book.findByPk(req.params.id)
         .then(book => {
             if(book) {
                 return book.destroy()
             } else {
-                res.send(404)
+                res.sendStatus(404)
             }
         })
         .then(book => { res.redirect(`/books`)})
-        .catch(err => { res.send(500) });
+        .catch(err => { res.sendStatus(500) });
 });
 
 // books/:id Route (GET) - Shows book detail form.
 router.get('/:id', (req, res, next) => {
     console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"); // CLI server reload ref point.
-    Book.findById(req.params.id)
+    Book.findByPk(req.params.id)
         .then(book =>{
             if(book) {
                 res.render('update-book', { book: book, title: book.title });      
@@ -101,7 +103,7 @@ router.get('/:id', (req, res, next) => {
                 res.render('page-not-found');
             };
         })
-        .catch(err => { res.send(500) });
+        .catch(err => { res.sendStatus(500) });
 });
 
 module.exports = router;
