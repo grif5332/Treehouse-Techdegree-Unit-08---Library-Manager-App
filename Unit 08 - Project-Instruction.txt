@@ -105,5 +105,5 @@ Extra Credit:
     [X] Year
     NOTE: Searching should be case insensitive and be good for partial matches for strings.
 
-[] Pagination
-    [] Include pagination for the books listing page.
+[X] Pagination
+    [X] Include pagination for the books listing page.
