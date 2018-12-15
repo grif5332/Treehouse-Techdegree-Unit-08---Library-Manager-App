@@ -6,14 +6,38 @@ const Book = require('../models').Book;
 const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({extended: false}));
 
+
+
 // Books Route (GET)
 // Shows the full list of books.
 router.get('/', (req, res, next) => {
-    Book.findAll( { order: [['title','ASC']] } )
-        .then(books => {
-            res.render('book-list', {books: books})
-        })
-        .catch(err => { res.send(500) });
+    Book.findAll({
+        order: [['id','ASC']]
+        // limit: 10
+    })
+    .then(books => {
+        // PAGINATION START
+        const booksPerPage = 10;
+        let numberOfPages = Math.ceil(books.length / booksPerPage);
+        let currentPage = 1;
+        let booksPerGroup = [];
+        let booksArray = [];
+        let booksList = [];
+
+        console.log(`Number Of Books: ${books.length}`);
+        console.log(`Number of Pages ${numberOfPages}`);
+        // books.length equals number of books in db
+        while(books.length > 0) {
+            booksArray.push(books.splice(0, booksPerPage))
+        };
+
+        console.log(`Number of Book Arrays: ${booksArray.length}`);
+
+        
+        //PAGINATION END
+
+        res.render('book-list', {books: books})
+    }).catch(err => { res.send(500) });
 });
 
 // POST - Create a New Book
@@ -79,39 +103,28 @@ router.get('/:id', (req, res, next) => {
             if(book) {
                 res.render('update-book', { book: book, title: book.title });      
             } else {
-                console.log(err.status);
                 res.render('page-not-found');
             };
         })
         .catch(err => { res.send(500) });
 });
 
-// search
-// The basic layout was done with help from a Traversy Media YouTube video:
-// https://www.youtube.com/watch?v=6jbrWF3BWM0
-// I added the [Op.or], if/else, and the res.send(500) stuff.
-router.get('/search', (req, res) => {
-    const { search } = req.query;
-    Book.findAll({
-        where : {
-            // title: {[Op.like]: '%' + search + '%' }
-             [Op.or]: [
-                 { title: '%' + search + '%'},
-                 { author: '%' + search + '%'},
-                 { genre: '%' + search + '%'},
-                 { year: '%' + search + '%'},
-             ]
-            }
-        })
-        .then(books => {
-            if(books) { 
-            res.render('book-list', {books: books})
-        } else {
-            console.log(err.status);
-            res.render('page-not-found');
-        }
-        })
-        .catch(err => { res.send(500) });
-});
+// // search
+// router.get('/search', (req, res) => {
+//     // let {search} = req.params.q;
+//     Book.findAll({ where : {title: {[Op.like]: '%' + req.param.q + '%'}
+
+
+//                 //  { title: '%' + search + '%'}
+//                 //  { author: '%' + search + '%'},
+//                 //  { genre: '%' + search + '%'},
+//                 //  { year: '%' + search + '%'},
+//             }
+//         })
+//         .then(books => {
+//             res.render('book-list', { books })
+//         })
+//         .catch(err => { res.send(500) });
+// });
 
 module.exports = router;

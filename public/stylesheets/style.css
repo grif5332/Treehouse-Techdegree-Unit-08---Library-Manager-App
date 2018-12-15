@@ -47,9 +47,6 @@ body {
   z-index: 1;
   margin: 0;
 }
-#book-list-table {
-  padding-bottom: 4em;
-}
 .update-error-style {
   font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
   font-size: 1em;
@@ -78,8 +75,8 @@ li.update-error-style:first-child {
   font-size: 18px;
   margin-top: -10px;
 }
-.footer {
-  height: 50px;
+.pagination {
+  text-align: center;
 }
 /* End Custom Styling */
 a {
