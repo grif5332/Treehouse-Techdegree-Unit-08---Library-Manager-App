@@ -30,7 +30,7 @@ router.get('/', (req, res, next) => {
 
         res.render('book-list', {
             books: booksArray[currentPage],
-            pages:  numberOfPages
+            pages: numberOfPages
         })
     }).catch(err => { res.send(500) });
 });
